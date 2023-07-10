@@ -12,9 +12,7 @@ class RecipeApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Recipe App',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: ThemeData.dark(),
       home: RecipeScreen(),
     );
   }
@@ -60,6 +58,7 @@ class _RecipeScreenState extends State<RecipeScreen> {
         itemCount: recipes.length,
         itemBuilder: (BuildContext context, int index) {
           return ListTile(
+            leading: Icon(Icons.food_bank),
             title: Text(recipes[index].title),
           );
         },
