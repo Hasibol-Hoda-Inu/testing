@@ -15,6 +15,13 @@ class WeatherApp extends StatelessWidget {
       title: 'Weather App',
       theme: ThemeData(
         primarySwatch: Colors.purple,
+        scaffoldBackgroundColor: Colors.white,
+        textTheme: TextTheme(
+          headline6: TextStyle(color: Colors.white),
+          subtitle1: TextStyle(color: Colors.white),
+          headline4: TextStyle(color: Colors.white),
+          headline5: TextStyle(color: Colors.white),
+        ),
       ),
       home: WeatherScreen(),
     );
@@ -47,7 +54,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
     });
 
     try {
-      final response = await http.get(Uri.parse('https://api.openweathermap.org/data/3.0/onecall?lat=25.621889&lon=88.638489&exclude=alerts&appid=6a0ad78a64ef7a8c8082e3e4525bffde'));
+      final response = await http.get(Uri.parse('https://api.openweathermap.org/data/2.5/weather?q=Dinajpur&appid=6a0ad78a64ef7a8c8082e3e4525bffde'));
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
         final main = data['main'];
@@ -97,7 +104,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
               else if (hasError)
                 Text(
                   'Error fetching weather data.',
-                  style: TextStyle(fontSize: 18),
+                  style: Theme.of(context).textTheme.headline6,
                 )
               else if (location != null &&
                     temperature != null &&
@@ -107,19 +114,23 @@ class _WeatherScreenState extends State<WeatherScreen> {
                     children: [
                       Text(
                         location!,
-                        style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                        style: Theme.of(context).textTheme.headline4,
                       ),
                       SizedBox(height: 16),
-                      Image.network('https://openweathermap.org/img/w/$weatherImage.png'),
+                      Image.network(
+                        'https://openweathermap.org/img/w/$weatherImage.png',
+                        width: 64,
+                        height: 64,
+                      ),
                       SizedBox(height: 16),
                       Text(
                         '$temperature°C',
-                        style: TextStyle(fontSize: 48, fontFamily: 'CustomFont'),
+                        style: Theme.of(context).textTheme.headline5,
                       ),
                       SizedBox(height: 8),
                       Text(
                         weatherDescription!,
-                        style: TextStyle(fontSize: 24, fontFamily: 'CustomFont'),
+                        style: Theme.of(context).textTheme.subtitle1,
                       ),
                     ],
                   ),
